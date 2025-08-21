@@ -5,7 +5,6 @@ import Home from './pages/Home'
 import { Toaster } from "react-hot-toast";
 import Footer from './components/Footer';
 import { useAppContext } from './context/AppContext';
-import Login from './components/Login';
 import AllProducts from './pages/AllProducts';
 import ProductCategory from './pages/ProductCategory';
 import ProductDetails from './pages/ProductDetails';
@@ -20,17 +19,14 @@ import Orders from './pages/seller/Orders';
 import Loading from './components/Loading';
 
 const App = () => {
-
   const isSellerPath = useLocation().pathname.includes("seller");
-  const {showUserLogin, isSeller} = useAppContext()
+  const { isSeller } = useAppContext();
 
   return (
     <div className='text-default min-h-screen text-gray-700 bg-green '>
+      {isSellerPath ? null : <Navbar/>} 
 
-     {isSellerPath ? null : <Navbar/>} 
-     {showUserLogin ? <Login/> : null}
-
-     <Toaster />
+      <Toaster />
 
       <div className={`${isSellerPath ? "" : "px-6 md:px-16 lg:px-24 xl:px-32"}`}>
         <Routes>
@@ -49,7 +45,8 @@ const App = () => {
           </Route>
         </Routes>
       </div>
-     {!isSellerPath && <Footer/>}
+
+      {!isSellerPath && <Footer/>}
     </div>
   )
 }
